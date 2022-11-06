@@ -1,0 +1,41 @@
+{{ form_start(form, { 'attr': {'novalidate': 'novalidate', 'class': 'row g-3 needs-validation'} }) }}
+    <div class="col-md-12">
+        {{ form_label(form.units) }}
+        {{ form_widget(form.units) }}
+    </div>
+    <div class="col-md-12">
+        {{ form_label(form.text, null, { 'label_attr': {'class': 'form-label'} }) }}
+        {{ form_widget(form.text, { 'attr': {'class': 'form-control', 'minlength': minLength, value: ''} }) }}
+        <div class="valid-feedback"></div>
+        <div class="invalid-feedback">
+            Минимальное количество символов должно составлять не менее {{minLength}} символов.
+        </div>
+        <div class="text-danger">
+            {{ form_errors(form.text) }}
+        </div>
+    </div>
+    <div class="col-md-12 d-flex justify-content-end">
+        <button class="btn btn-primary" type="submit">Поиск</button>
+    </div>
+{{ form_end(form) }}
+{% block javascript %}
+<script>
+    (function () {
+        'use strict'
+
+        var forms = document.querySelectorAll("[name={{form.vars.id}}]")
+
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+{% endblock %}

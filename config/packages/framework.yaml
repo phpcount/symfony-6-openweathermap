@@ -17,6 +17,13 @@ framework:
     php_errors:
         log: true
 
+    http_client:
+        scoped_clients:
+            openweathermap.client:
+                base_uri: "%env(OPENWEATHERMAP_SERVICE_URL)%"
+                headers:
+                    Accept: 'application/json'
+
 when@test:
     framework:
         test: true

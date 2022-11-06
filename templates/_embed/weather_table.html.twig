@@ -1,0 +1,40 @@
+<style>
+table.table {
+    font-size: 1rem;
+}
+table.table td {
+    vertical-align: middle;
+}
+@media screen and (max-width: 768px) {
+    table.table {
+        font-size: 0.9rem;
+    }
+}
+@media screen and (max-width: 576px) {
+    table.table {
+        font-size: 0.8rem;
+    }
+}
+</style>
+<table class="table">
+    <thead>
+        <th>Облачность</th>
+        <th>Температура, {{measurements.temp}}</th>
+        <th>Ветер, {{measurements.wind_speed}}</th>
+        <th>Давление, {{measurements.pressure}}</th>
+        <th>Влажность, {{measurements.humidity}}</th>
+    </thead>
+    <tbody>
+        {% for item in weather.weather %}
+        {# {% set iconurl = "https://openweathermap.org/img/w/" ~ item.icon ~ ".png" %} #}
+        {% set iconurl = "https://openweathermap.org/img/wn/" ~ item.icon ~ ".png" %}
+        <tr>
+            <td><img src="{{iconurl}}" alt="{{weather.name}}"> {{ item.description }}</td>
+            <td>{{weather.main.temp|temp}}</td>
+            <td>{{weather.wind.speed}}</td>
+            <td>{{weather.main.pressure}}</td>
+            <td>{{weather.main.humidity}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
